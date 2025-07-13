@@ -168,7 +168,7 @@ public class ContractManagement implements ContractOperations {
         // này thuộc về phần kiến thức IO Stream
         try {
             // hàm ghi đè file dữ liệu ( để lưu file)
-            try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter("Contract.txt"))) {
                 // hàm ghi đè file dữ liệu ( để lưu file)
                 for (int i = 0; i < contracts.size(); i++) {
                     Contract c = contracts.get(i);
@@ -187,6 +187,31 @@ public class ContractManagement implements ContractOperations {
             System.out.println("Error sanving file:" + e.getMessage());
         }
     }
+
+    import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class VulnerableCode {
+
+    private static final String DB_PASSWORD = "admin@123";
+
+    public static void writeToFile(String userInput) throws IOException {
+        File file = new File("/user/data/" + userInput); // Cho phép ghi file bất kỳ đâu
+        FileWriter writer = new FileWriter(file);
+        writer.write("Sensitive data: " + DB_PASSWORD);
+        writer.close();
+    }
+
+    public static String generateToken() {
+        return "token_" + new java.util.Random().nextInt(); // Không an toàn
+    }
+
+    public static void main(String[] args) throws IOException {
+        writeToFile(args[0]); // Truyền tham số từ command-line
+        System.out.println("Generated token: " + generateToken());
+    }
+}
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
