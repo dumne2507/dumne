@@ -4,6 +4,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 
 public class ContractManagement implements ContractOperations {
@@ -188,9 +192,20 @@ public class ContractManagement implements ContractOperations {
     }
 
     // tạo lỗ hổng để snykAI quét
-    public class DemoCredential {
-    private static final String DB_USER = "admin";
-    private static final String DB_PASS = "Pa$$w0rd123";
+    public class DBConnector {
+    public static Connection getConnection() {
+        // Snyk chắc chắn gắn cờ ở đây (Critical)
+        String url = "jdbc:mysql://localhost:3306/contracts";
+        String username = "admin";
+        String password = "Pa$$w0rd123";
+
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            System.out.println("Connection failed: " + e.getMessage());
+            return null;
+        }
+    }
 }
 
 
