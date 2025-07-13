@@ -4,8 +4,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.security.SecureRandom;
-import java.util.Random;
 
 
 public class ContractManagement implements ContractOperations {
@@ -47,10 +45,6 @@ public class ContractManagement implements ContractOperations {
             System.out.println("Error!!! ContractID already exists!!!");
             return;
         }
-        String code = generateContractCode();
-        System.out.println("Generated Contract Code (demo): " + code);
-
-        
         contracts.add(contract);
         System.out.println("Contract added successfully!");
 
@@ -194,11 +188,12 @@ public class ContractManagement implements ContractOperations {
     }
 
     // tạo lỗ hổng để snykAI quét
-    public String generateContractCode() {
-        Random rand = new Random();          // Snyk High: Insecure randomness
-        int num = rand.nextInt(1_000_000);   // 6‑digit
-        return String.format("C-%06d", num);
-    }
+    public class DemoCredential {
+    private static final String DB_USER = "admin";
+    private static final String DB_PASS = "Pa$$w0rd123";
+}
+
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
