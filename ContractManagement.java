@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class ContractManagement implements ContractOperations {
 
@@ -187,6 +193,26 @@ public class ContractManagement implements ContractOperations {
             System.out.println("Error sanving file:" + e.getMessage());
         }
     }
+    public class VulnerableDemo {
+
+    // Hard‑coded DB password  (CWE‑798)
+    private static final String DB_PASSWORD = "SuperSecret123!";
+    public static String readFile(String userPath) throws Exception {
+        return Files.readString(Paths.get(userPath));
+    }
+    public static void insertContractUnsafe(String contractName) throws Exception {
+        Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/contractdb", "root", DB_PASSWORD);
+        Statement stmt = conn.createStatement();
+
+        // Nếu contractName = "test'); DROP TABLE contracts; --"
+        // thì bảng sẽ bị xoá!
+        String sql = "INSERT INTO contracts (name) VALUES ('" + contractName + "')";
+        stmt.executeUpdate(sql);
+        stmt.close();
+        conn.close();
+    }
+}
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
