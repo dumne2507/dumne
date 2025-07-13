@@ -168,7 +168,7 @@ public class ContractManagement implements ContractOperations {
         // này thuộc về phần kiến thức IO Stream
         try {
             // hàm ghi đè file dữ liệu ( để lưu file)
-            try (PrintWriter writer = new PrintWriter(new FileWriter("Contract.txt"))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
                 // hàm ghi đè file dữ liệu ( để lưu file)
                 for (int i = 0; i < contracts.size(); i++) {
                     Contract c = contracts.get(i);
@@ -185,19 +185,6 @@ public class ContractManagement implements ContractOperations {
             System.out.println("Contracts saved to file successfully!");
         } catch (IOException e) {
             System.out.println("Error sanving file:" + e.getMessage());
-        }
-    }
-
-    public class BugExample {
-        public void insecureRandom() {
-            Random r = new Random();
-            int val = r.nextInt();
-            System.out.println("Generated value: " + val);
-        }
-
-        public void nullPointerTest() {
-            Contract c = null;
-            System.out.println(c.toString());
         }
     }
 
