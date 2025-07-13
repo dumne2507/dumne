@@ -188,31 +188,6 @@ public class ContractManagement implements ContractOperations {
         }
     }
 
-    import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class VulnerableCode {
-
-    private static final String DB_PASSWORD = "admin@123";
-
-    public static void writeToFile(String userInput) throws IOException {
-        File file = new File("/user/data/" + userInput); // Cho phép ghi file bất kỳ đâu
-        FileWriter writer = new FileWriter(file);
-        writer.write("Sensitive data: " + DB_PASSWORD);
-        writer.close();
-    }
-
-    public static String generateToken() {
-        return "token_" + new java.util.Random().nextInt(); // Không an toàn
-    }
-
-    public static void main(String[] args) throws IOException {
-        writeToFile(args[0]); // Truyền tham số từ command-line
-        System.out.println("Generated token: " + generateToken());
-    }
-}
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ContractManagement manager = new ContractManagement();
